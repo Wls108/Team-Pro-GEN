@@ -1,9 +1,11 @@
 const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const inquirer = require('inquirer');
-const path = require('path');
+const Engineer = require('./lib/Engineer');
 const fs = require('fs');
+const path = require('path');
+const inquirer = require('inquirer');
+
+
 
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const distPath = path.join(DIST_DIR, 'team.html');
@@ -13,16 +15,16 @@ const render = require('./src/page-template.js');
 const teamMembers = [];
 const idArray = [];
 
-// Inform user
+// Inform user of Options
 console.log(
   '\nAcessing Team Manager!\nUse `npm run reset` to reset the dist/ folder\n'
 );
-
+//Start Questions
 function appMenu() {
   function createManager() {
     console.log('Please Enter Team Info');
     inquirer
-      .prompt([
+      .prompt([//Manager Prompt
         {
           type: 'input',
           name: 'managerName',
@@ -30,11 +32,11 @@ function appMenu() {
           validate: (answer) => {
             if (answer !== '') {
               return true;
-            }
+            }//Invalid Error msg
             return 'Please enter at least one character.';
           },
         },
-        {
+        {//Manager ID prompt
           type: 'input',
           name: 'managerId',
           message: "What is the team manager's id?",
@@ -43,10 +45,10 @@ function appMenu() {
             if (pass) {
               return true;
             }
-            return 'Please enter a positive number greater than zero.';
+            return 'Please enter a number greater than zero.';
           },
         },
-        {
+        {//Manager Email Prompt
           type: 'input',
           name: 'managerEmail',
           message: "What is the team manager's email?",
@@ -67,7 +69,7 @@ function appMenu() {
             if (pass) {
               return true;
             }
-            return 'Please enter a positive number greater than zero.';
+            return 'Please enter a number greater than zero.';
           },
         },
       ])
@@ -134,12 +136,12 @@ function appMenu() {
             const pass = answer.match(/^[1-9]\d*$/);
             if (pass) {
               if (idArray.includes(answer)) {
-                return 'This ID is already taken. Please enter a different number.';
+                return 'This ID is already in use. Please enter a different ID.';
               } else {
                 return true;
               }
             }
-            return 'Please enter a positive number greater than zero.';
+            return 'Please enter a number greater than zero.';
           },
         },
         {
@@ -201,12 +203,12 @@ function appMenu() {
             const pass = answer.match(/^[1-9]\d*$/);
             if (pass) {
               if (idArray.includes(answer)) {
-                return 'This ID is already taken. Please enter a different number.';
+                return 'This ID is already in use. Please enter a different ID.';
               } else {
                 return true;
               }
             }
-            return 'Please enter a positive number greater than zero.';
+            return 'Please enter a number greater than zero.';
           },
         },
         {
